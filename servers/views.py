@@ -396,6 +396,7 @@ def add_sshkey_to_servers(request):
             response = server.enable_rescue(type='linux64', ssh_keys=[ssh_key_hetzner_id])
             response.action.wait_until_finished()
             rebootresponse = server.reboot()
+            print('wait until it finishes')
             rebootresponse.wait_until_finished()
             # time.sleep(120)
             print('after reboot, now try to ssh')
