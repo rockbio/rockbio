@@ -40,7 +40,9 @@ class Profile(models.Model):
     params = JSONField()
 
 
-class CustomUser(AbstractUser):
+class SubscriptionHolder(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
     subscription = models.ForeignKey(
         'djstripe.Subscription', null=True, blank=True, on_delete=models.SET_NULL,
         help_text="The user's Stripe Subscription object, if it exists"

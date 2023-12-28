@@ -20,6 +20,7 @@ from djstripe.models import Subscription
 
 import stripe
 
+from settings.models import SubscriptionHolder
 
 def index(request):
     if request.method == 'POST':
@@ -81,9 +82,10 @@ def subscription_confirm(request):
 
     # get the subscribing user from the client_reference_id we passed in above
     client_reference_id = int(session.client_reference_id)
-    subscription_holder = get_user_model().objects.get(id=client_reference_id)
+
+    subscription_holder, created = SubscriptionHolder.objects.get_or_create(user=request.user)
     # sanity check that the logged in user is the one being updated
-    assert subscription_holder == request.user
+    #assert subscription_holder == request.user
 
     # get the subscription object form Stripe and sync to djstripe
     subscription = stripe.Subscription.retrieve(session.subscription)
@@ -102,8 +104,9 @@ def subscription_confirm(request):
 @login_required
 def create_portal_session(request):
     stripe.api_key = djstripe_settings.STRIPE_SECRET_KEY
+    subscription_holder, created = SubscriptionHolder.objects.get_or_create(user=request.user)
     portal_session = stripe.billing_portal.Session.create(
-        customer=request.user.customer.id,
+        customer=subscription_holder.customer.id,
         return_url="https://daivero.rockbio.io/subscription-details/",
     )
     return HttpResponseRedirect(portal_session.url)
