@@ -57,7 +57,7 @@ urlpatterns = [
     #path("subscription/", views.pricing_page, name="pricing_page"),
     path("pricing-page/", views.pricing_page, name="pricing_page"),
     path("subscription-confirm/", views.subscription_confirm, name="subscription_confirm"),
-    path("subscription-detail/", views.create_portal_session, name="subscription_details"),
+    path("subscription-details/", views.create_portal_session, name="subscription_details"),
 
 
 ] + static(settings2.STATIC_URL, document_root=settings2.STATIC_ROOT)
