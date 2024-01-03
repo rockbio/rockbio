@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Subscribe" %}{% endblock %}
+{% load static i18n %}
+
+
+{% block content %}
+
+<h1>{% trans "Subscribe" %}</h1>
+ 
+<script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+<stripe-pricing-table pricing-table-id="prctbl_1OS45gJRI3IWLl22UzYPmMOB"
+publishable-key="pk_live_51OEgLKJRI3IWLl22SvPZc1puN5jECKw8mrC7K5EJABA5Kaav4W5sZIzgNsPs65bYZACwVUplIbcrRTnyd9xH6wko00XXU9unMD">
+</stripe-pricing-table>
+
+{% endblock %}

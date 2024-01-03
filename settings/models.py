@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import JSONField
+from django.contrib.auth.models import AbstractUser
+
 
 class S3Credential(models.Model):
     def get_absolute_url(self):
@@ -36,3 +38,16 @@ class Profile(models.Model):
             primary_key=True,
         )
     params = JSONField()
+
+
+class SubscriptionHolder(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    subscription = models.ForeignKey(
+        'djstripe.Subscription', null=True, blank=True, on_delete=models.SET_NULL,
+        help_text="The user's Stripe Subscription object, if it exists"
+    )
+    customer = models.ForeignKey(
+        'djstripe.Customer', null=True, blank=True, on_delete=models.SET_NULL,
+        help_text="The user's Stripe Customer object, if it exists"
+    )    

@@ -2,15 +2,19 @@
 
 {% load i18n %}
 
-{% block head_title %}{% trans "My Subscription" %}{% endblock %}
+{% block head_title %}{% trans "Subscribe" %}{% endblock %}
 {% load static i18n %}
+
 
 {% block content %}
 
+<h1>{% trans "Subscribe" %}</h1>
+ 
+
 <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
 <stripe-pricing-table pricing-table-id="prctbl_1OS5SZJRI3IWLl22uPf4PyS5"
-publishable-key="pk_test_51OEgLKJRI3IWLl22jZFRcBZGvCOMFe8SfQFZOhd97kURQz59xPRmY3JHNsIAPKNGBL8ZkhGXVETwiegsm5RutKJc00BvjrjwUD">
+publishable-key="pk_test_51OEgLKJRI3IWLl22jZFRcBZGvCOMFe8SfQFZOhd97kURQz59xPRmY3JHNsIAPKNGBL8ZkhGXVETwiegsm5RutKJc00BvjrjwUD"
+client-reference-id="{{ request.user.id }}">
 </stripe-pricing-table>
 
 {% endblock %}
-
