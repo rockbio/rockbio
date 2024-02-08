@@ -96,6 +96,8 @@ def subscription_confirm(request):
     subscription_holder.customer = djstripe_subscription.customer
     subscription_holder.save()
 
+    command = f'bash scripts/create_user_jupyterlab.sh {subscription_holder.user}'
+
     # show a message to the user and redirect
     messages.success(request, f"You've successfully signed up. Thanks for the support!")
     return HttpResponseRedirect(reverse("subscription_details"))
