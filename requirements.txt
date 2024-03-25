@@ -22,3 +22,4 @@ django-gravatar2
 #pandas
 crispy-bootstrap3
 hcloud
+dj-stripe
